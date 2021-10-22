@@ -23,7 +23,6 @@ function App() {
 
     useEffect(() => {
         // @ts-ignore
-        let id = 'bitcoin'
         instance.get(`assets`)
             // @ts-ignore
             .then(res => setData(res.data.data))
@@ -34,7 +33,7 @@ function App() {
     return (
         <>{data?.map(s => {
             return (
-                <table className={'container'}>
+                <table className={'container'} key={s.rank}>
                     <tr className={'title'}>
                         <th className={'line'}>Rank</th>
                         <th className={'line'}>Name</th>
