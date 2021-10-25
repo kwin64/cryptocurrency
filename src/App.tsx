@@ -1,33 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {instance} from './api/instance';
+import React, {useEffect} from 'react';
 import './App.scss';
-
-type DataType = {
-    changePercent24Hr: string
-    explorer: string
-    id: string
-    marketCapUsd: string
-    maxSupply: string
-    name: string
-    priceUsd: string
-    rank: string
-    supply: string
-    symbol: string
-    volumeUsd24Hr: string
-    vwap24Hr: string
-}
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "./store/store";
+import {DataType, initializeApp} from "./store/reducers/cryptocurrency";
 
 function App() {
 
-    const [data, setData] = useState<Array<DataType>>()
+    const dispatch = useDispatch()
+    const data = useSelector<AppRootStateType, Array<DataType>>(state => state.cryptocurrency.data)
 
     useEffect(() => {
-        // @ts-ignore
-        instance.get(`assets`)
-            // @ts-ignore
-            .then(res => setData(res.data.data))
+        dispatch(initializeApp)
     }, [])
-
     console.log(data)
 
     return (
