@@ -28,19 +28,27 @@ const initialState: InitialStateType = {
 export const cryptocurrency = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'APP/CRYPTOCURRENCY/SET-DATA-APP':
-            return {...state}
+            return {
+                ...state,
+                data: action.data
+            }
         default:
             return {...state}
     }
 }
 
-export const setDataApp = (data: unknown) => ({type: 'APP/CRYPTOCURRENCY/SET-DATA-APP', data} as const)
+export const setDataApp = (data: Array<DataType>) => ({type: 'APP/CRYPTOCURRENCY/SET-DATA-APP', data} as const)
 
 export const initializeApp = () => (dispatch: Dispatch) => {
     cryptocurrencyAPI.getCryptocurrency()
         .then(res => {
-            debugger
-            dispatch(setDataApp(res.data))
+            if (res.status === 200) {
+                dispatch(setDataApp(res.data.data))
+            }
         })
+        .catch(res => {
 
+            }
+        )
+        .finally()
 }

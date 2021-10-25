@@ -10,7 +10,7 @@ function App() {
     const data = useSelector<AppRootStateType, Array<DataType>>(state => state.cryptocurrency.data)
 
     useEffect(() => {
-        dispatch(initializeApp)
+        dispatch(initializeApp())
     }, [])
     console.log(data)
 
